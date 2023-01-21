@@ -1,0 +1,10 @@
+{
+    "FeeRatio"          : "100",      
+    "OrderID"           : "34534589",      
+    "ValidUntil"        : "300000000",      
+    "chainID"           : "1",      
+    "RatioSellArg"      : "3000000000000000000000",      
+    "RatioBuyArg"       : "1",      
+    "SellTokenAddress"  : "0xdAC17F958D2ee523a2206206994597C13D831ec7",      
+    "BuyTokenAddress"   : "0x0000000000000000000000000000000000000000"      
+}
