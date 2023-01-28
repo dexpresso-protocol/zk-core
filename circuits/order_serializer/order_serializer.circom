@@ -21,6 +21,14 @@ template CreateOrderHash () {
   signal input BuyTokenAddress[160];
   
   signal concatenatedValues[1040]; // size = 1040 = 16 + 3x64 + 2x256 + 2x160 
+  signal tmpp1;
+  signal tmpp2;
+  signal tmpp3;
+  signal tmpp4;
+  signal tmpp5;
+  signal tmpp6;
+  signal tmpp7;
+  signal tmpp8;
   
 
   signal output orderHash;
@@ -69,27 +77,62 @@ template CreateOrderHash () {
   for (var i = 0; i < 160; i += 1) {
     concatenatedValues[880 + i] <== BuyTokenAddress[i];
   }
-  
-  // compute SHA256 of the serialized values
-  component keccak = Keccak(1040, 256);
-  for (var i = 0; i < 1040 / 8; i += 1) {
-    for (var j = 0; j < 8; j++) {
-      keccak.in[8*i + j] <== concatenatedValues[8*i + (7-j)];
-    }
-  }
-  
-  // convert the last 256 bits (32 bytes) into the number corresponding to hash of
-  // the output of keccak is 32 bytes. bytes are arranged from largest to smallest
-  // but bytes themselves are little-endian bitstrings of 8 bits
-  // we just want a little-endian bitstring of them.
-  component bits2Num = Bits2Num(256);
-  for (var i = 0; i < 32; i++) {
-    for (var j = 0; j < 8; j++) {
-      bits2Num.in[8*i + j] <== keccak.out[256 - 8*(i+1) + j];
-    }
-  }
 
-  orderHash <== bits2Num.out;
+  component bits2Num1 = Bits2Num(250);
+  for (var j = 0; j < 250; j++) {
+    bits2Num1.in[j] <== concatenatedValues[j];
+  }
+  tmpp1 <== bits2Num1.out;
+
+  component bits2Num2 = Bits2Num(250);
+  for (var j = 0; j < 250; j++) {
+    bits2Num2.in[j] <== concatenatedValues[250 + j];
+  }
+  tmpp2 <== bits2Num2.out;
+
+  component bits2Num3 = Bits2Num(250);
+  for (var j = 0; j < 250; j++) {
+    bits2Num3.in[j] <== concatenatedValues[500 + j];
+  }
+  tmpp3 <== bits2Num3.out;
+
+  component bits2Num4 = Bits2Num(250);
+  for (var j = 0; j < 250; j++) {
+    bits2Num4.in[j] <== concatenatedValues[750 + j];
+  }
+  tmpp4 <== bits2Num4.out;
+
+  component bits2Num5 = Bits2Num(40);
+  for (var j = 0; j < 40; j++) {
+    bits2Num5.in[j] <== concatenatedValues[1000 + j];
+  }
+  tmpp5 <== bits2Num5.out;
+
+  tmpp6 <== tmpp1 + tmpp2;
+  tmpp7 <== tmpp3 + tmpp4;
+  tmpp8 <== tmpp5 + tmpp6;
+  orderHash <== tmpp7 + tmpp8;
+    
+  // // compute SHA256 of the serialized values
+  // component keccak = Keccak(1040, 256);
+  // for (var i = 0; i < 1040 / 8; i += 1) {
+  //   for (var j = 0; j < 8; j++) {
+  //     keccak.in[8*i + j] <== concatenatedValues[8*i + (7-j)];
+  //   }
+  // }
+  
+  // // convert the last 256 bits (32 bytes) into the number corresponding to hash of
+  // // the output of keccak is 32 bytes. bytes are arranged from largest to smallest
+  // // but bytes themselves are little-endian bitstrings of 8 bits
+  // // we just want a little-endian bitstring of them.
+  // component bits2Num = Bits2Num(256);
+  // for (var i = 0; i < 32; i++) {
+  //   for (var j = 0; j < 8; j++) {
+  //     bits2Num.in[8*i + j] <== keccak.out[256 - 8*(i+1) + j];
+  //   }
+  // }
+
+  // orderHash <== bits2Num.out;
 }
 
 component main = CreateOrderHash();
