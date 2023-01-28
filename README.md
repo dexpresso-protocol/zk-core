@@ -9,6 +9,7 @@ Each circuit contais following sub-folders:
 - `ceremony`: includes phase two powers of Tao. this is necessary for _groth16_ based SNARKs.
 - `inputs`: contains json files for example bad and good inputs for the circuit.
 - `proofs`: example proofs generated with inputs from the `inputs` directory.
+- `py_modules`: python implementation of the exact same circuit as is availble in the `circuits` directory. The input/output of the py-module must match the related circuit's inputs and the `public-output.json` file.
 
 ## Helpful Commands List
 ### Compiling a circuit
@@ -43,6 +44,6 @@ Now the verification key is available in `verification_key.json` file.
 ### verifying
 `snarkjs groth16 verify ../ceremony/verification_key.json good_public.json good_proof.json`
 
-The output should be something like this
+The output should be something like this:
 
 `[INFO]  snarkJS: OK!`
