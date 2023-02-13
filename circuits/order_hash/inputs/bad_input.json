@@ -1,0 +1,8 @@
+{
+    "makerTotalSellAmount" : "5",  
+    "makerRatioBuyArg" : "7",
+    "makerRatioSellArg" : "5",
+    "takerTotalSellAmount" : "7",
+    "takerRatioBuyArg" : "19",
+    "takerRatioSellArg" : "12"
+}

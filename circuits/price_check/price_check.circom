@@ -23,13 +23,19 @@ template PriceCheck () {
    temp1 <== makerTotalSellAmount * makerRatioBuyArg;
    temp2 <== makerRatioSellArg * takerTotalSellAmount;
    isPriceFair <-- temp1==temp2 ? 1 : 0; 
+   // Contraint
+   isPriceFair * (isPriceFair - 1) === 0;
 
    // Price relativity
    temp3 <== makerRatioSellArg  * takerRatioSellArg;
    temp4 <== makerRatioBuyArg  * takerRatioBuyArg;
    isPriceRelative <-- temp3>=temp4 ? 1 : 0;
+   // Contraint
+   isPriceFair * (isPriceFair - 1) === 0;
+
    // Constraints.  
-   result <-- isPriceFair & isPriceRelative;  
+   result <-- isPriceFair & isPriceRelative;
+     
 }
 
 component main = PriceCheck();
