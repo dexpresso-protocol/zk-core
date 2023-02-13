@@ -1,3 +1,9 @@
 [submodule "circuits/circom-ecdsa"]
 	path = circuits/circom-ecdsa
 	url = git@github.com:0xPARC/circom-ecdsa.git
+[submodule "circuits/efficient-zk-ecdsa"]
+	path = circuits/efficient-zk-ecdsa
+	url = git@github.com:personaelabs/efficient-zk-ecdsa.git
+[submodule "circuits/efficient-zk-ecdsa-wasm"]
+	path = circuits/efficient-zk-ecdsa-wasm
+	url = git@github.com:personaelabs/efficient-zk-ecdsa-wasm.git
